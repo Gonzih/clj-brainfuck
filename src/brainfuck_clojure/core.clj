@@ -32,8 +32,11 @@
         in-code  (take-while pred code)
         out-code (drop-while pred code)
         ; loop should be here
-        result (eval-brainfuck in-code state)]
-    [result out-code]))
+        result (loop [{:keys [pointer cells] :as state} state]
+                 (if (> (cells pointer) 0)
+                   (recur (eval-brainfuck in-code state))
+                   state))]
+    [out-code result]))
 
 (defn new-state []
   {:pointer 0
