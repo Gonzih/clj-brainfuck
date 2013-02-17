@@ -4,7 +4,7 @@
 
 (defn change-in
   "If value exists just applies function on it
-   If value not exists initializes it with 0 and applies function then"
+  If value not exists initializes it with 0 and applies function then"
   [coll keys function]
   (if (get-in coll keys)
     (update-in coll keys function)
@@ -31,7 +31,6 @@
         pred (partial not= \])
         in-code  (take-while pred code)
         out-code (drop-while pred code)
-        ; loop should be here
         result (loop [{:keys [pointer cells] :as state} state]
                  (if (> (cells pointer) 0)
                    (recur (eval-brainfuck in-code state))
@@ -48,9 +47,6 @@
   (loop [code  code
          state (or (first state)
                    (new-state))]
-
-    ;(println state)
-    ;(println code)
 
     (if (empty? code)
       state
