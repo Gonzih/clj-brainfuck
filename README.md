@@ -1,13 +1,13 @@
-# brainfuck-clojure
+# clj-brainfuck [![Build Status](https://travis-ci.org/Gonzih/clj-brainfuck.png)](https://travis-ci.org/Gonzih/clj-brainfuck)
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure brainfuck interpretator
 
 ## Usage
 
-FIXME
+lein run 'your code here'
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Max Gonzih gonzih at gmail.com
 
 Distributed under the Eclipse Public License, the same as Clojure.
