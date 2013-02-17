@@ -44,6 +44,16 @@
         out-code (parse-code ">>,.+-"  )]
     ((parse-brackets code) 1) => out-code))
 
+(fact "parse-brackets funtion returns code from inside nested brackets"
+  (let [code     (parse-code "[.[>-]>>.,]>>,.+-")
+        in-code  (parse-code ".[>-]>>.,"  )]
+    ((parse-brackets code) 0) => in-code))
+
+(fact "parse-brackets funtion returns remaining code after nested brackets"
+  (let [code     (parse-code "[.[>-]>>.,]>>,.+-")
+        out-code (parse-code ">>,.+-"  )]
+    ((parse-brackets code) 1) => out-code))
+
 (fact "cell-present return true if cell is non zero"
       (cell-present { :pointer 0 :cells [1] }) => true)
 

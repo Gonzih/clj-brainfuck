@@ -30,16 +30,22 @@
 (defn parse-brackets [code]
   "Returns vector of code in brackets and remaining code"
   (loop [in-code [] out-code [] code code brackets 0]
-    ;(pprint in-code)
-    ;(pprint out-code)
-    ;(pprint code)
-    ;(pprint brackets)
     (if (empty? code)
       [in-code out-code]
       (let [ch (first code)]
         (cond
-          (= ch \[) (recur in-code out-code (rest code) (inc brackets))
-          (= ch \]) (recur in-code out-code (rest code) (dec brackets))
+          (= ch \[) (recur (if (> brackets 0)
+                             (conj in-code ch)
+                             in-code)
+                           out-code
+                           (rest code)
+                           (inc brackets))
+          (= ch \]) (recur (if (> brackets 1)
+                             (conj in-code ch)
+                             in-code)
+                           out-code
+                           (rest code)
+                           (dec brackets))
           :else (if (> brackets 0)
                   (recur (conj in-code ch) out-code (rest code) brackets)
                   (recur in-code (conj out-code ch) (rest code) brackets)))))))
