@@ -1,5 +1,7 @@
 (ns clj-brainfuck.core)
 
+(defn parse-code [code] (map char code))
+
 (defn read-char [& args] (-> System/in .read))
 
 (defn change-in
@@ -59,5 +61,5 @@
 (defn -main
   "Evals brainfuck code"
   [& args]
-  (eval-brainfuck (map char (first args)))
+  (eval-brainfuck (parse-code (first args)))
   nil)

@@ -5,6 +5,9 @@
 (def dummy-state {:pointer 3
                   :cells [125, 110, 145, 68, 89]})
 
+(fact "parse-code returns array of chars"
+      (parse-code ".,.") => [\. \, \.])
+
 (fact "Evaluation of > moves pointer forward"
   (let [{pointer :pointer} (eval-char dummy-state \>)]
     pointer => 4))
