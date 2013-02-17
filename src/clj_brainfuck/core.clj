@@ -52,15 +52,11 @@
 (defn eval-brackets
   "Returns vector of remaining code and state"
   [code state]
-  (let [code (rest code)
-        pred (partial not= \])
-        in-code  (take-while pred code)
-        out-code (drop-while pred code)
-        result (loop [{:keys [pointer cells] :as state} state]
-                 (if (> (cells pointer) 0)
-                   (recur (eval-brainfuck in-code state))
-                   state))]
-    [out-code result]))
+  (let [[in-code out-code] (parse-brackets code)]
+    (loop [{:keys [pointer cells] :as state} state]
+      (if (cell-present state)
+        (recur (eval-brainfuck in-code state))
+        [out-code state]))))
 
 (defn new-state []
   {:pointer 0
