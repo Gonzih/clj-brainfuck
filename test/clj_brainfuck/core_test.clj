@@ -34,22 +34,38 @@
       (get 3)) => 56
   (provided (read-char) => 56 :times 1))
 
-(fact "parse-brackets funtion returns code from inside 2 brackets"
+(fact "parse-brackets funtion returns
+       code from inside 2 brackets"
   (let [code    (parse-code "[.>>.,]")
         in-code (parse-code ".>>.,"  )]
     ((parse-brackets code) 0) => in-code))
 
-(fact "parse-brackets funtion returns remaining code after brackets"
+(fact "parse-brackets funtion returns
+       remaining code after brackets"
   (let [code     (parse-code "[.>>.,]>>,.+-")
         out-code (parse-code ">>,.+-"  )]
     ((parse-brackets code) 1) => out-code))
 
-(fact "parse-brackets funtion returns code from inside nested brackets"
+(fact "parse-brackets funtion returns
+       code from inside first pair of brackets"
+  (let [code    (parse-code "[.>>.,]>>[<<<---]")
+        in-code (parse-code ".>>.,"  )]
+    ((parse-brackets code) 0) => in-code))
+
+(fact "parse-brackets funtion returns
+       remaining code after first pair of brackets"
+  (let [code    (parse-code "[.>>.,]>>[<<<---]")
+        in-code (parse-code ">>[<<<---]"  )]
+    ((parse-brackets code) 1) => in-code))
+
+(fact "parse-brackets funtion returns
+       code from inside nested brackets"
   (let [code     (parse-code "[.[>-]>>.,]>>,.+-")
         in-code  (parse-code ".[>-]>>.,"  )]
     ((parse-brackets code) 0) => in-code))
 
-(fact "parse-brackets funtion returns remaining code after nested brackets"
+(fact "parse-brackets funtion returns
+       remaining code after nested brackets"
   (let [code     (parse-code "[.[>-]>>.,]>>,.+-")
         out-code (parse-code ">>,.+-"  )]
     ((parse-brackets code) 1) => out-code))

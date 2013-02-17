@@ -29,26 +29,37 @@
 
 (defn parse-brackets [code]
   "Returns vector of code in brackets and remaining code"
-  (loop [in-code [] out-code [] code code brackets 0]
-    (if (empty? code)
-      [in-code out-code]
-      (let [ch (first code)]
-        (cond
-          (= ch \[) (recur (if (> brackets 0)
-                             (conj in-code ch)
-                             in-code)
-                           out-code
-                           (rest code)
-                           (inc brackets))
-          (= ch \]) (recur (if (> brackets 1)
-                             (conj in-code ch)
-                             in-code)
-                           out-code
-                           (rest code)
-                           (dec brackets))
-          :else (if (> brackets 0)
-                  (recur (conj in-code ch) out-code (rest code) brackets)
-                  (recur in-code (conj out-code ch) (rest code) brackets)))))))
+  (loop [in-code [] out-code [] code code brackets 0 step 0]
+    (cond
+      (empty? code) [in-code out-code]
+      (and (zero? brackets) (> step 0)) [in-code code]
+      :else (let [ch (first code)]
+              (cond
+                (= ch \[) (recur (if (> brackets 0)
+                                   (conj in-code ch)
+                                   in-code)
+                                 out-code
+                                 (rest code)
+                                 (inc brackets)
+                                 (inc step))
+                (= ch \]) (recur (if (> brackets 1)
+                                   (conj in-code ch)
+                                   in-code)
+                                 out-code
+                                 (rest code)
+                                 (dec brackets)
+                                 (inc step))
+                :else (if (> brackets 0)
+                        (recur (conj in-code ch)
+                               out-code
+                               (rest code)
+                               brackets
+                               (inc step))
+                        (recur in-code
+                               (conj out-code ch)
+                               (rest code)
+                               brackets
+                               (inc step))))))))
 
 (defn cell-present [{:keys [pointer cells]}]
   (let [v (get cells pointer)]
