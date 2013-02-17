@@ -16,19 +16,19 @@
   (let [{pointer :pointer} (eval-char dummy-state \<)]
     pointer => 2))
 
-(fact "Evaluation of + character increases cell"
+(fact "Evaluation of + character increases current cell"
   (let [{[_ _ _ ch & _] :cells} (eval-char dummy-state \+)]
     ch => 69))
 
-(fact "Evaluation of - character decreases"
+(fact "Evaluation of - character decreases current cell"
   (let [{[_ _ _ ch & _] :cells} (eval-char dummy-state \-)]
     ch => 67))
 
-(fact "Evalluation of . character"
+(fact "Evalluation of . character prints character from current cell"
   (eval-char dummy-state \.) => dummy-state
   (provided (print \D) => nil :times 1))
 
-(fact "Evaluation of , character"
+(fact "Evaluation of , character reads character to current cell"
   (-> (eval-char dummy-state \,)
       :cells
       (get 3)) => 56
