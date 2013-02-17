@@ -1,6 +1,6 @@
 (defproject clj-brainfuck "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Brainfuck in Clojure"
+  :url "https://github.com/Gonzih/clj-brainfuck"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :profiles {:dev {:dependencies [[midje "1.4.0"]]
