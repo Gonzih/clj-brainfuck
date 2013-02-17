@@ -33,3 +33,12 @@
       :cells
       (get 3)) => 56
   (provided (read-char) => 56 :times 1))
+
+(fact "cell-present return true if cell is non zero"
+      (cell-present { :pointer 0 :cells [1] }) => true)
+
+(fact "cell-present return false if cell is nil"
+      (cell-present { :pointer 0 :cells [] }) => false)
+
+(fact "cell-present return false if cell is zero"
+      (cell-present { :pointer 0 :cells [0] }) => false)

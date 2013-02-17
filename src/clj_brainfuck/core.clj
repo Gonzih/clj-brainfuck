@@ -1,4 +1,5 @@
-(ns clj-brainfuck.core)
+(ns clj-brainfuck.core
+  (:require [clojure.pprint :refer [pprint]]))
 
 (defn parse-code [code] (map char code))
 
@@ -25,6 +26,11 @@
     nil))
 
 (declare eval-brainfuck)
+
+(defn cell-present [{:keys [pointer cells]}]
+  (let [v (get cells pointer)]
+    (not (or (nil?  v)
+             (zero? v)))))
 
 (defn eval-brackets
   "Returns vector of remaining code and state"
