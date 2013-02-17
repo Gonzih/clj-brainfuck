@@ -25,7 +25,8 @@
   (eval-char dummy-state \.) => dummy-state
   (provided (print \D) => nil :times 1))
 
-(future-fact "Evaluation of , character"
-  (let [{[_ _ _ ch & _] :cells} (eval-char dummy-state \,)]
-    ch => 56
-    (provided (read-char) => 56 :times 1)))
+(fact "Evaluation of , character"
+  (-> (eval-char dummy-state \,)
+      :cells
+      (get 3)) => 56
+  (provided (read-char) => 56 :times 1))
