@@ -3,7 +3,7 @@
 
 (defn parse-code [code] (map char code))
 
-(defn read-char [& args] (-> System/in .read))
+(defn read-char [& args] (.read System/in))
 
 (defn change-in
   "If value exists just applies function on it
@@ -32,10 +32,10 @@
   (loop [in-code [] out-code [] code code brackets 0 step 0]
     (cond
       (empty? code) [in-code out-code]
-      (and (zero? brackets) (> step 0)) [in-code code]
+      (and (zero? brackets) (pos? step)) [in-code code]
       :else (let [ch (first code)]
               (cond
-                (= ch \[) (recur (if (> brackets 0)
+                (= ch \[) (recur (if (pos? brackets)
                                    (conj in-code ch)
                                    in-code)
                                  out-code
@@ -49,7 +49,7 @@
                                  (rest code)
                                  (dec brackets)
                                  (inc step))
-                :else (if (> brackets 0)
+                :else (if (pos? brackets)
                         (recur (conj in-code ch)
                                out-code
                                (rest code)
