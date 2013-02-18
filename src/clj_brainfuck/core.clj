@@ -75,16 +75,14 @@
         (recur (eval-brainfuck in-code state))
         [out-code state]))))
 
-(defn new-state []
-  {:pointer 0
-   :cells []})
+(def new-state {:pointer 0 :cells []})
 
 (defn eval-brainfuck
   "Code should be seq of chars"
   [code & state]
   (loop [code  code
          state (or (first state)
-                   (new-state))]
+                   new-state)]
 
     (if (empty? code)
       state
