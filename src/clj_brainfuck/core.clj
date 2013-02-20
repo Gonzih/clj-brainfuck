@@ -94,6 +94,6 @@
 
 (defn -main
   "Evals brainfuck code"
-  [& args]
-  (eval-brainfuck (parse-code (first args)))
+  [code & args]
+  (eval-brainfuck (parse-code code))
   nil)
