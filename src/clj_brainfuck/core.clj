@@ -7,7 +7,7 @@
 
 (defn change-in
   "If value exists just applies function on it
-  If value not exists initializes it with 0 and applies function then"
+  If value does not exist initializes it with 0 and applies function then"
   [coll keys function]
   (if (get-in coll keys)
     (update-in coll keys function)
